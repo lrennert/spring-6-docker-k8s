@@ -98,6 +98,11 @@ docker run --name rest-mvc -d -p 8081:8080 -e SPRING_PROFILES_ACTIVE=localmysql 
  -e SERVER_PORT=8080 --link auth-server:auth-server --link mysql:mysql spring-6-rest-mvc:0.0.1-SNAPSHOT
 ```
 
+Run PostgreSQL
+```shell
+docker run --name postgres -e POSTGRES_USER=restadmin -e POSTGRES_PASSWORD=password -e POSTGRES_DB=restdb -d postgres
+```
+
 Run Reactive Container
 ```shell    
 docker run --name reactive -d -p 8082:8082 -e SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000 \
