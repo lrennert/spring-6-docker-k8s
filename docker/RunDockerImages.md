@@ -114,8 +114,9 @@ docker run --name rest-mvc -d -p 8081:8080 -e SPRING_PROFILES_ACTIVE=postgres \
 
 Run Reactive Container
 ```shell    
-docker run --name reactive -d -p 8082:8082 -e SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000 \
- --link auth-server:auth-server spring-6-reactive:0.0.1-SNAPSHOT
+docker run --name reactive -d -p 8082:8080 \
+ -e SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000 \
+ -e SERVER_PORT=8080 --link auth-server:auth-server spring-6-reactive:0.0.1-SNAPSHOT
 ```
 
 Rerun gateway with link to auth-server and rest-mvc and reactive
