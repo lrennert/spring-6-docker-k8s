@@ -103,6 +103,15 @@ Run PostgreSQL
 docker run --name postgres -e POSTGRES_USER=restadmin -e POSTGRES_PASSWORD=password -e POSTGRES_DB=restdb -d postgres
 ```
 
+Run rest-mvc with link to postgres
+```shell
+docker stop rest-mvc
+docker rm rest-mvc
+docker run --name rest-mvc -d -p 8081:8080 -e SPRING_PROFILES_ACTIVE=postgres \
+ -e SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000 -e SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/restdb  \
+ -e SERVER_PORT=8080 --link auth-server:auth-server --link postgres:postgres spring-6-rest-mvc:0.0.1-SNAPSHOT
+```
+
 Run Reactive Container
 ```shell    
 docker run --name reactive -d -p 8082:8082 -e SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000 \
