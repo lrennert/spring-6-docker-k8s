@@ -129,14 +129,15 @@ docker run --name gateway -d -p 8080:8080 -e SPRING_PROFILES_ACTIVE=docker --lin
 
 Run MongoDB
 ```shell
-docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=example -p 27017:27017 mongo 
+docker run --name mongo -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=example mongo 
 ```
 
 Run Reactive Mongo
 ```shell
 docker run --name reactive-mongo -d  -e SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000 \
- -e SFG_MONGOHOST=mongo -e SERVER_PORT=8080 --link auth-server:auth-server --link mongo:mongo reactive-mongo:0.0.1-SNAPSHOT
+ -e SPRING_DATA_MONGODB_HOST=mongo -e SERVER_PORT=8080 --link auth-server:auth-server --link mongo:mongo reactive-mongo:0.0.1-SNAPSHOT
 ```
+
 Rerun gateway with link to auth-server and rest-mvc and reactive and reactive-mongo
 ```shell
 docker stop gateway 
