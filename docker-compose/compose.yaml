@@ -16,3 +16,20 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     expose:
       - "27017"
+  auth-server:
+    container_name: auth-server
+    image: spring-6-auth-server:0.0.1-SNAPSHOT
+    expose:
+      - "9000"
+  rest-mvc:
+    container_name: rest-mvc
+    image: spring-6-rest-mvc:0.0.1-SNAPSHOT
+    environment:
+      - SPRING_PROFILES_ACTIVE=postgres
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://auth-server:9000
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/restdb
+      - SERVER_PORT=8080
+    expose:
+      - "8080"
+    depends_on:
+      - postgres
