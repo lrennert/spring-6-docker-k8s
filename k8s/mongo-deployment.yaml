@@ -21,4 +21,9 @@ spec:
       - image: mongo
         name: mongo
         resources: {}
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: root
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: example
 status: {}
